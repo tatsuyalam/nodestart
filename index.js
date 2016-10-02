@@ -15,6 +15,10 @@ http.createServer((req, res) => {
   }
   req.pipe(res)
 
+  // Basic logging
+  // process.stdout.write('\n\n\n' + JSON.stringify(req.headers))
+  // req.pipe(process.stdout)
+
 }).listen(8080)
 console.log('Echo server: Listening on port 8080...')
 
@@ -28,7 +32,13 @@ http.createServer((req, res) => {
     url: `http://${desUrl}${req.url}`
   }
   options.method = req.method // use the same HTTP verb (for non-GET requests)
-  req.pipe(request(options)).pipe(res) // streams are chainable
+  let outRes = request(options)
+  req.pipe(outRes).pipe(res) // streams are chainable
+
+  // Logging
+  // process.stdout.write(JSON.stringify(outRes.headers))
+  // outRes.pipe(process.stdout)
+  // outRes.pipe(res)
 
 }).listen(8001)
 console.log('Proxy server: Listening on port 8001...')
