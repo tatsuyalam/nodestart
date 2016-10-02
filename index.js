@@ -35,10 +35,12 @@ http.createServer((req, res) => {
 
   console.log(`\n\nProxying request to: ${desUrl + req.url}`)
 
+  let overrideUrl = req.headers['x-destination-url'] || desUrl
+
   // Proxy server
   let options = {
     headers: req.headers,
-    url: `${desUrl}${req.url}`
+    url: `${overrideUrl}${req.url}`
   }
   options.method = req.method // use the same HTTP verb (for non-GET requests)
   let outRes = request(options)
