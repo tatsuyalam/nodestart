@@ -14,5 +14,8 @@
     "proxy"
   ],
   "author": "tatsuyalam",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.75.0"
+  }
 }
